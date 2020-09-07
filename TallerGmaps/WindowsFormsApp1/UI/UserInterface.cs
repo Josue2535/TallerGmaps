@@ -17,16 +17,13 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        GMapOverlay marker;
-        GMapOverlay poligons;
-        GMapOverlay routes;
-        DataTable dt;
+        GMarkerGoogle marker;
+        GMapOverlay markerO;
+        
         private MinTic minT;
         public Form1()
         {
-            marker = new GMapOverlay("marker");
-            poligons = new GMapOverlay("poligonos");
-            routes = new GMapOverlay("routes");
+            markerO = new GMapOverlay("Markers");
 
             InitializeComponent();
             
@@ -54,6 +51,7 @@ namespace WindowsFormsApp1
                             minT.addZona(rowLine[0], rowLine[1], rowLine[2], ubicacion(rowLine[3]), ubicacion(rowLine[4]));
                             
                         }
+                        
                     }
 
                     
@@ -74,10 +72,8 @@ namespace WindowsFormsApp1
                 {
 
                 }
-                else if (u[i] == '.') {
-                    br += ",";
-                }
-                else if (u[i] == ')' || u[i] == '(')
+               
+                else if (u[i] == ')' || u[i] == '(' || u[i] == ' ' )
                 {
                 }
                 else
@@ -87,32 +83,43 @@ namespace WindowsFormsApp1
                 
             }
             
-            ltest.Text = br;
-
-            d1 = double.Parse(br);
+            test.Text = br;
+            if (!br.Equals("")) {
+                try
+                {
+                    d1 = double.Parse(br, System.Globalization.CultureInfo.InvariantCulture);
+                }
+                catch (Exception e) {
+                    d1 = 0;
+                }
+            }
+           
             return d1;
         }
 
         private void cbMuni_SelectedIndexChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < minT.showUbicacion(cbMuni.SelectedItem.ToString()).Count; i++) {
-                cbLp.Items.Add(minT.showUbicacion(cbMuni.SelectedItem.ToString()));
+                cbLp.Items.Add(minT.showUbicacion(cbMuni.SelectedItem.ToString())[i]);
             }
         }
 
         private void cbAd_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            for (int i = 0; i < minT.showDireccion(cbMuni.SelectedItem.ToString(), cbLp.SelectedItem.ToString()).Count; i++)
+            {
+                cbAd.Items.Add(minT.showDireccion(cbMuni.SelectedItem.ToString(), cbLp.SelectedItem.ToString())[i]);
+            }
+            comboBox1.Items.Add(minT.showLatitud(cbMuni.SelectedItem.ToString(), cbLp.SelectedItem.ToString(), cbAd.SelectedItem.ToString()));
+            comboBox2.Items.Add(minT.showLongitud(cbMuni.SelectedItem.ToString(), cbLp.SelectedItem.ToString(), cbAd.SelectedItem.ToString()));
         }
 
         private void cbLp_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (string[] row in values)
+
+            for (int i = 0; i < minT.showUbicacion(cbMuni.SelectedItem.ToString()).Count; i++)
             {
-                if (cbLp.SelectedItem.Equals(row[1]))
-                {
-                    cbAd.Items.Add(row[2]);
-                }
+                cbAd.Items.Add(minT.showUbicacion(cbMuni.SelectedItem.ToString())[i]);
             }
         }
 
@@ -128,13 +135,42 @@ namespace WindowsFormsApp1
             gMapControl1.MaxZoom = 24;
             gMapControl1.Zoom = 9;
             gMapControl1.AutoScroll = true;
-            gMapControl1.Overlays.Add(routes);
-            gMapControl1.Overlays.Add(marker);
-            gMapControl1.Overlays.Add(poligons);
+            gMapControl1.Overlays.Add(markerO);
+
+
         }
 
-        private void setMarkers() { 
-        
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void delate_Click(object sender, EventArgs e)
+        {
+            markerO.Clear();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox1.Items.Add(minT.showLatitud(cbMuni.SelectedItem.ToString(), cbLp.SelectedItem.ToString(), cbAd.SelectedItem.ToString()));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            marker = new GMarkerGoogle(new PointLatLng(double.Parse(comboBox1.SelectedItem.ToString()), double.Parse(comboBox2.SelectedItem.ToString())), GMarkerGoogleType.green);
+            marker.ToolTipMode = MarkerTooltipMode.Always;
+            marker.ToolTipText = String.Format("Location:  \n latitude: {0} \n  length: {1}   ",double.Parse(comboBox1.SelectedItem.ToString()), double.Parse(comboBox2.SelectedItem.ToString()));
+            markerO.Markers.Add(marker);
+        }
+
+        private void grafico_Click(object sender, EventArgs e)
+        {
+            string dep = "Zones by region";
+            chart1.Series.Clear();
+            chart1.Series.Add(dep);
+            for (int i = 0; i < minT.pastel().Count; i++) {
+                chart1.Series[dep].Points.AddXY(minT.showMunicipios()[i], minT.getMunicipios()[i].cantidadZonas());
+            }
         }
     }
 }

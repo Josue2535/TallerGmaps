@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.cbMuni = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -39,6 +42,16 @@
             this.cbLp = new System.Windows.Forms.ComboBox();
             this.cbAd = new System.Windows.Forms.ComboBox();
             this.ltest = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.delate = new System.Windows.Forms.Button();
+            this.add = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.grafico = new System.Windows.Forms.Button();
+            this.test = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // gMapControl1
@@ -148,15 +161,114 @@
             this.ltest.AutoSize = true;
             this.ltest.Location = new System.Drawing.Point(554, 305);
             this.ltest.Name = "ltest";
-            this.ltest.Size = new System.Drawing.Size(74, 13);
+            this.ltest.Size = new System.Drawing.Size(0, 13);
             this.ltest.TabIndex = 9;
-            this.ltest.Text = "Location point";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(554, 305);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "latitude";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(553, 321);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(223, 21);
+            this.comboBox1.TabIndex = 11;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(554, 363);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "length";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(553, 389);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(223, 21);
+            this.comboBox2.TabIndex = 13;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // delate
+            // 
+            this.delate.Location = new System.Drawing.Point(557, 433);
+            this.delate.Name = "delate";
+            this.delate.Size = new System.Drawing.Size(75, 23);
+            this.delate.TabIndex = 14;
+            this.delate.Text = "delate points";
+            this.delate.UseVisualStyleBackColor = true;
+            this.delate.Click += new System.EventHandler(this.delate_Click);
+            // 
+            // add
+            // 
+            this.add.Location = new System.Drawing.Point(701, 433);
+            this.add.Name = "add";
+            this.add.Size = new System.Drawing.Size(75, 23);
+            this.add.TabIndex = 15;
+            this.add.Text = "add point";
+            this.add.UseVisualStyleBackColor = true;
+            this.add.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(885, 42);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(453, 377);
+            this.chart1.TabIndex = 16;
+            this.chart1.Text = "chart1";
+            // 
+            // grafico
+            // 
+            this.grafico.Location = new System.Drawing.Point(683, 29);
+            this.grafico.Name = "grafico";
+            this.grafico.Size = new System.Drawing.Size(75, 23);
+            this.grafico.TabIndex = 17;
+            this.grafico.Text = "graphic";
+            this.grafico.UseVisualStyleBackColor = true;
+            this.grafico.Click += new System.EventHandler(this.grafico_Click);
+            // 
+            // test
+            // 
+            this.test.AutoSize = true;
+            this.test.Location = new System.Drawing.Point(654, 368);
+            this.test.Name = "test";
+            this.test.Size = new System.Drawing.Size(13, 13);
+            this.test.TabIndex = 18;
+            this.test.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.test);
+            this.Controls.Add(this.grafico);
+            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.add);
+            this.Controls.Add(this.delate);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.ltest);
             this.Controls.Add(this.cbAd);
             this.Controls.Add(this.cbLp);
@@ -169,6 +281,7 @@
             this.Controls.Add(this.gMapControl1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,6 +300,15 @@
         private System.Windows.Forms.ComboBox cbLp;
         private System.Windows.Forms.ComboBox cbAd;
         private System.Windows.Forms.Label ltest;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button delate;
+        private System.Windows.Forms.Button add;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button grafico;
+        private System.Windows.Forms.Label test;
     }
 }
 
